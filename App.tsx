@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   Pressable,
   SafeAreaView,
@@ -17,28 +18,36 @@ import {
 
 function App(): React.JSX.Element {
 
-  const [randomBg, setRandomBg]= useState('#ffffff')
+  const [firstBg, setFirstBg]= useState('#ffffff')
+  const [secondBg, setSecondBg]= useState('#ffffff')
+  const [thirdBg, setThirdBg]= useState('#ffffff')
+
 
   const generateColor = () => {
-    const hexRange = "0123456ABCDEF"
+    const hexRange = "0123456abcdef"
 
     let color = "#"
 
     for (let index = 0; index < 6; index++) {
       color += hexRange[Math.floor(Math.random() * 16)];
       }
-      setRandomBg(color)
-      console.warn(color)
+      setFirstBg(color)
+      setSecondBg(color)
+      setThirdBg(color)
+
   }
 
  return (
  <>
- <StatusBar backgroundColor={randomBg}></StatusBar>
- <View style={[styles.sectionContainer, {backgroundColor:randomBg}]}>
+ <StatusBar backgroundColor={firstBg}></StatusBar>
+ 
+ <LinearGradient colors={[firstBg, secondBg, thirdBg]} style={styles.linearGradient}>
+ <View style={[styles.sectionContainer, {backgroundColor:firstBg}]}>
  <Pressable onPress={generateColor}>
  <Text style={styles.sectionTitle}> Press me</Text>
  </Pressable>
  </View>
+</LinearGradient>
  </>
   );
 }
@@ -50,6 +59,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     justifyContent:'center',
     alignItems:'center'
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
   },
   sectionTitle: {
     fontSize: 24,
